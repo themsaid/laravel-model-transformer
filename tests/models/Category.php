@@ -3,7 +3,6 @@
 namespace Themsaid\Transformer\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Themsaid\Multilingual\Translatable;
 
 class Category extends Model
 {
