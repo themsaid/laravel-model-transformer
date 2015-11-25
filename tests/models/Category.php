@@ -12,4 +12,9 @@ class Category extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
 }
