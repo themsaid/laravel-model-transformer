@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Themsaid\Transformer\Tests\Models\Category;
 use Themsaid\Transformer\Tests\Transformers\CategoryTransformer;
@@ -66,7 +67,9 @@ class TransformersTest extends TestCase
         $resultNormal = CategoryTransformer::transform($category);
         $this->assertArrayHasKey('dummy_item', $resultNormal);
 
-        $resultExclude = CategoryTransformer::transform($category, ['except' => ['dummy_item']]);
+        $resultExclude = CategoryTransformer::transform($category, [], function (Collection $output) {
+            return $output->except('dummy_item');
+        });
         $this->assertArrayNotHasKey('dummy_item', $resultExclude);
     }
 

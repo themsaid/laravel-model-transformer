@@ -8,31 +8,34 @@ use Illuminate\Database\Eloquent\Model;
 class AbstractTransformer
 {
     private $options;
+    private $callback;
 
     /**
      * Initialize transformer
      *
      * @param $options
      */
-    private function __construct($options)
+    private function __construct($options, $callback)
     {
         $this->options = $options;
+        $this->callback = $callback;
     }
 
     /**
      * @param $modelOrCollection
      * @param array $options
+     * @param callable|null $callback
      * @return mixed
      */
-    static function transform($modelOrCollection, $options = [])
+    static function transform($modelOrCollection, $options = [], $callback = null)
     {
-        $static = new static($options);
+        $static = new static($options, $callback);
 
         if ($modelOrCollection instanceof Collection) {
             return $modelOrCollection->map([$static, 'transformModel'])->toArray();
         }
 
-        return $static->prepare(
+        return $static->present(
             $static->transformModel($modelOrCollection)
         );
     }
@@ -41,14 +44,13 @@ class AbstractTransformer
      * @param $output
      * @return \Illuminate\Support\Collection
      */
-    private function prepare($output)
+    private function present($output)
     {
         $collection = collect($output);
 
-        if (isset($this->options['except'])) {
-            $collection = $collection->except(
-                $this->options['except']
-            );
+        if ($this->callback) {
+            $callBack = $this->callback;
+            $collection = $callBack($collection);
         }
 
         return $collection->toArray();
