@@ -60,17 +60,30 @@ class TransformersTest extends TestCase
      *
      * @return void
      */
-    public function test_can_exclude_dummy_item()
+    public function test_callback_on_output_as_a_collection()
     {
         $category = Category::create(['name' => 'Electronics']);
 
         $resultNormal = CategoryTransformer::transform($category);
         $this->assertArrayHasKey('dummy_item', $resultNormal);
 
-        $resultExclude = CategoryTransformer::transform($category, [], function (Collection $output) {
+        $resultExclude = CategoryTransformer::transform($category, [], function ($output) {
             return $output->except('dummy_item');
         });
+
         $this->assertArrayNotHasKey('dummy_item', $resultExclude);
+    }
+
+    /**
+     *
+     * @return void
+     */
+    public function test_passing_options_array()
+    {
+        $category = Category::create(['name' => 'Electronics']);
+
+        $result = CategoryTransformer::transform($category, ['add_me' => 'Value']);
+        $this->assertArrayHasKey('add_me', $result);
     }
 
 }

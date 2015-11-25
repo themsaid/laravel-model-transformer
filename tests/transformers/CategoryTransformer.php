@@ -15,6 +15,10 @@ class CategoryTransformer extends AbstractTransformer
             'dummy_item' => "I'm dummy",
         ];
 
+        if ($val = @$this->options['add_me']) {
+            $output['add_me'] = $val;
+        }
+
         if ($item->relationLoaded('products')) {
             $output['products'] = ProductTransformer::transform($item->products);
         }

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AbstractTransformer
 {
-    private $options;
+    protected $options;
     private $callback;
 
     /**
