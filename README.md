@@ -15,8 +15,7 @@ Here you use a numerical value to represent the different types, you also have a
 Inside the controller we can transform the model to be represented into more API friendly structure. 
 
 ```php
-<?ph
-I
+<?php
 class SomeController{
 	function getIndex(){
 		$product = Product::find(1);
