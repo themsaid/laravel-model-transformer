@@ -1,6 +1,6 @@
 <?php
 
-namespace Themsaid\Transformer\Tests\Models;
+namespace Themsaid\Transformers\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,4 +12,10 @@ class Product extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, 'products_tags', 'product_id', 'tag_id')
+            ->withPivot('is_active');
+    }
 }

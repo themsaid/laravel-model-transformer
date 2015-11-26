@@ -1,6 +1,6 @@
 <?php
 
-namespace Themsaid\Transformer;
+namespace Themsaid\Transformers;
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
@@ -8,52 +8,51 @@ use Illuminate\Database\Eloquent\Model;
 class AbstractTransformer
 {
     protected $options;
-    private $callback;
 
     /**
      * Initialize transformer
      *
      * @param $options
      */
-    private function __construct($options, $callback)
+    private function __construct($options)
     {
         $this->options = $options;
-        $this->callback = $callback;
     }
 
     /**
      * @param $modelOrCollection
      * @param array $options
-     * @param callable|null $callback
      * @return mixed
      */
-    static function transform($modelOrCollection, $options = [], $callback = null)
+    static function transform($modelOrCollection, $options = [])
     {
-        $static = new static($options, $callback);
+        $static = new static($options);
 
         if ($modelOrCollection instanceof Collection) {
             return $modelOrCollection->map([$static, 'transformModel'])->toArray();
         }
 
-        return $static->present(
-            $static->transformModel($modelOrCollection)
-        );
+        return $static->transformModel($modelOrCollection);
     }
 
     /**
-     * @param $output
-     * @return \Illuminate\Support\Collection
+     * @param $item
+     * @param $tableName
+     * @return bool
      */
-    private function present($output)
+    protected function isLoadedFromPivotTable(Model $item, $tableName)
     {
-        $collection = collect($output);
+        return $item->pivot && $item->pivot->getTable() == $tableName;
+    }
 
-        if ($this->callback) {
-            $callBack = $this->callback;
-            $collection = $callBack($collection);
-        }
-
-        return $collection->toArray();
+    /**
+     * @param Model $item
+     * @param $relationshipName
+     * @return bool
+     */
+    protected function isRelationshipLoaded(Model $item, $relationshipName)
+    {
+        return $item->relationLoaded($relationshipName);
     }
 
     /**
@@ -62,5 +61,4 @@ class AbstractTransformer
     protected function transformModel(Model $modelOrCollection)
     {
     }
-
 }

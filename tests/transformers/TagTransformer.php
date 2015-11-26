@@ -1,18 +1,26 @@
 <?php
 
-namespace Themsaid\Transformer\Tests\Transformers;
+namespace Themsaid\Transformers\Tests\Transformers;
 
 use Illuminate\Database\Eloquent\Model;
-use Themsaid\Transformer\AbstractTransformer;
+use Themsaid\Transformers\AbstractTransformer;
 
 class TagTransformer extends AbstractTransformer
 {
 
     public function transformModel(Model $item)
     {
-        return [
+        $output = [
             'name' => $item->name,
         ];
+
+        if ($this->isLoadedFromPivotTable($item, 'products_tags')) {
+            $output['relationship_data'] = [
+                'is_active' => $item->pivot->is_active,
+            ];
+        }
+
+        return $output;
     }
 
 }

@@ -2,8 +2,10 @@
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Themsaid\Transformer\Tests\Models\Category;
-use Themsaid\Transformer\Tests\Transformers\CategoryTransformer;
+use Themsaid\Transformers\Tests\Models\Category;
+use Themsaid\Transformers\Tests\Models\Tag;
+use Themsaid\Transformers\Tests\Transformers\CategoryTransformer;
+use Themsaid\Transformers\Tests\Transformers\ProductTransformer;
 
 class TransformersTest extends TestCase
 {
@@ -60,30 +62,33 @@ class TransformersTest extends TestCase
      *
      * @return void
      */
-    public function test_callback_on_output_as_a_collection()
-    {
-        $category = Category::create(['name' => 'Electronics']);
-
-        $resultNormal = CategoryTransformer::transform($category);
-        $this->assertArrayHasKey('dummy_item', $resultNormal);
-
-        $resultExclude = CategoryTransformer::transform($category, [], function ($output) {
-            return $output->except('dummy_item');
-        });
-
-        $this->assertArrayNotHasKey('dummy_item', $resultExclude);
-    }
-
-    /**
-     *
-     * @return void
-     */
     public function test_passing_options_array()
     {
         $category = Category::create(['name' => 'Electronics']);
 
         $result = CategoryTransformer::transform($category, ['add_me' => 'Value']);
         $this->assertArrayHasKey('add_me', $result);
+    }
+
+    /**
+     *
+     * @return void
+     */
+    public function test_showing_pivot_data()
+    {
+        $category = Category::create(['name' => 'Electronics']);
+        $product = $category->products()->create(['name' => 'iPhone']);
+        $tag = Tag::create(['name' => 'On Sale']);
+
+        $product->tags()->attach($tag->id, [
+            'is_active' => 1
+        ]);
+
+        $product->load('tags');
+
+        $result = ProductTransformer::transform($product);
+
+        $this->assertEquals(1, $result['tags'][0]['relationship_data']['is_active']);
     }
 
 }

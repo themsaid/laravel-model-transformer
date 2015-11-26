@@ -25,7 +25,7 @@ class TestCase extends Orchestra\Testbench\TestCase
 
     public function test_database_setup()
     {
-        $this->assertTrue(Schema::hasTable('planets'));
+        $this->assertTrue(Schema::hasTable('categories'));
     }
 
     /**
@@ -58,7 +58,7 @@ class TestCase extends Orchestra\Testbench\TestCase
      */
     protected function getPackageProviders($app)
     {
-        return ['Themsaid\Transformer\TransformerServiceProvider'];
+        return ['Themsaid\Transformers\TransformerServiceProvider'];
     }
 
     /**
@@ -103,6 +103,7 @@ class TestCase extends Orchestra\Testbench\TestCase
             Schema::create('products_tags', function (Blueprint $table) {
                 $table->integer('product_id')->unsigned();
                 $table->integer('tag_id')->unsigned();
+                $table->tinyInteger('is_active')->unsigned();
             });
         }
 

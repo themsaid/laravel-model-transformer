@@ -1,13 +1,12 @@
 <?php
 
-namespace Themsaid\Transformer\Tests\Transformers;
+namespace Themsaid\Transformers\Tests\Transformers;
 
 use Illuminate\Database\Eloquent\Model;
-use Themsaid\Transformer\AbstractTransformer;
+use Themsaid\Transformers\AbstractTransformer;
 
 class CategoryTransformer extends AbstractTransformer
 {
-
     public function transformModel(Model $item)
     {
         $output = [
@@ -25,5 +24,4 @@ class CategoryTransformer extends AbstractTransformer
 
         return $output;
     }
-
 }

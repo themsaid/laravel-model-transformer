@@ -1,6 +1,6 @@
 <?php
 
-namespace Themsaid\Transformer\Tests\Models;
+namespace Themsaid\Transformers\Tests\Models;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Themsaid\Transformer;
+namespace Themsaid\Transformers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Validator;
