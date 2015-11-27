@@ -154,7 +154,9 @@ class TagTransformer extends AbstractTransformer
 ## Passing options to the transformer
 You may need to pass some options from the controller to the transformer, you can do that by providing an array of options to the `transform()` method as a second parameter:
 
-```
+```php
+<?php
+
 CategoryTransformer::transform($category, ['hide_admin_id' => true])
 ```
 
@@ -199,4 +201,8 @@ By default it assumes that all transformers are located under the `App\Transform
 
 You may also pass options to the transformer as a second argument:
 
-`transform(Model::find(1), ['use_nl2br' => true])`
+```php
+<?php
+
+transform(Model::find(1), ['use_nl2br' => true])
+```
