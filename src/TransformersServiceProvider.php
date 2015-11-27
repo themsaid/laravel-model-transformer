@@ -1,12 +1,12 @@
 <?php
-
 namespace Themsaid\Transformers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Validator;
 
-class TransformerServiceProvider extends ServiceProvider
+class TransformersServiceProvider extends ServiceProvider
 {
+
     /**
      * Perform post-registration booting of services.
      *
@@ -14,7 +14,9 @@ class TransformerServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-
+        $this->publishes([
+            __DIR__ . '/config/modelTransformers.php' => config_path('modelTransformers.php'),
+        ]);
     }
 
     /**
@@ -24,6 +26,8 @@ class TransformerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/modelTransformers.php', 'modelTransformers'
+        );
     }
 }
