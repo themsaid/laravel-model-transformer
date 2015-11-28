@@ -16,6 +16,12 @@ if ( ! function_exists('transform')) {
             throw new \Themsaid\Transformers\TransformerException('Argument 1 of the transform function must be an instance of Model or Collection.');
         }
 
+        // The only case where a model is not found is when the method
+        // relieves an empty collection, fo this we only need
+        // to return an empty array.
+        if ( ! $model)
+            return [];
+
         $reflector = new ReflectionClass($model);
         $transformerName = "{$reflector->getShortName()}Transformer";
         $transformerPath = config('modelTransformers.transformers_namespace') . '\\' . $transformerName;
