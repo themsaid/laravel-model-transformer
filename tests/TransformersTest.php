@@ -139,4 +139,17 @@ class TransformersTest extends TestCase
         $this->assertArrayHasKey('name', $result[0]);
     }
 
+    /**
+     *
+     * @return void
+     */
+    public function test_transform_empty_collection_to_array_using_short_hand_returns_array()
+    {
+        $result = transform(
+            Category::where('id', 100000000)->get()
+        );
+
+        $this->assertEquals([], $result);
+    }
+
 }
