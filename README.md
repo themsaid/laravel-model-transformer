@@ -46,7 +46,9 @@ The above code will result a JSON string that may look like this:
 ## Installation
 Begin by installing the package through Composer. Run the following command in your terminal:
 
-`composer require themsaid/laravel-model-transformers`
+```
+composer require themsaid/laravel-model-transformers:dev-master
+```
 
 Once composer is done, add the package service provider in the providers array in `config/app.php`
 
