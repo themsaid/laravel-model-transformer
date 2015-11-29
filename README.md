@@ -62,7 +62,7 @@ Finally publish the config file:
 php artisan vendor:publish
 ```
 
-That's all what's needed.
+That's all what we need.
 
 ## Usage
 Create a model transformer class by extending the AbstractTransformer class:
