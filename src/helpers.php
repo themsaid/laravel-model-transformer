@@ -17,7 +17,7 @@ if ( ! function_exists('transform')) {
         }
 
         // The only case where a model is not found is when the method
-        // relieves an empty collection, fo this we only need
+        // receives an empty collection, for this we only need
         // to return an empty array.
         if ( ! $model)
             return [];
