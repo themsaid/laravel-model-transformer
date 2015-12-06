@@ -5,8 +5,11 @@ if ( ! function_exists('transform')) {
     {
         $args = func_get_args();
 
-        if ( ! isset($args[0]))
+        if ( ! isset($args[0]) && $args[0] != null)
             throw new \Themsaid\Transformers\TransformerException('Argument 1 of the transform function is missing.');
+
+        if ($args[0] == null)
+            return null;
 
         if ($args[0] instanceof \Illuminate\Database\Eloquent\Model) {
             $model = $args[0];
