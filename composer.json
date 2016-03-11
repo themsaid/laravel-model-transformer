@@ -22,9 +22,6 @@
         "psr-4": {
             "Themsaid\\Transformers\\": "src"
         },
-        "files": [
-            "src/helpers.php"
-        ],
         "classmap": [
             "tests"
         ]

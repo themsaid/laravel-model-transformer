@@ -180,31 +180,3 @@ class CategoryTransformer extends AbstractTransformer
 	}
 }
 ```
-
-## Using the shorthand method
-This package is shipped with a shorthand method for applying transformation for a Model or a Collection:
-
-```php
-<?php
-class SomeController{
-	function getIndex(){
-		$product = Product::find(1);
-		
-		return response([
-			"product" => transform($product)
-		]);
-	}
-}
-```
-
-Using the `transform()` method, the package locates the suitable transformer based on the Model or the Collection passed as the first argument.
-
-By default it assumes that all transformers are located under the `App\Transformers` namespace, you can change this behaviour in the config file.
-
-You may also pass options to the transformer as a second argument:
-
-```php
-<?php
-
-transform(Model::find(1), ['use_nl2br' => true])
-```

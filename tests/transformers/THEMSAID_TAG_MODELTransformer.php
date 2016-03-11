@@ -5,7 +5,7 @@ namespace Themsaid\Transformers\Tests\Transformers;
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
 
-class TagTransformer extends AbstractTransformer
+class THEMSAID_TAG_MODELTransformer extends AbstractTransformer
 {
 
     public function transformModel(Model $item)

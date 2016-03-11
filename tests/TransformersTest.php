@@ -2,10 +2,10 @@
 
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use Themsaid\Transformers\Tests\Models\Category;
-use Themsaid\Transformers\Tests\Models\Tag;
-use Themsaid\Transformers\Tests\Transformers\CategoryTransformer;
-use Themsaid\Transformers\Tests\Transformers\ProductTransformer;
+use Themsaid\Transformers\Tests\Models\THEMSAID_CATEGORY_MODEL as Category;
+use Themsaid\Transformers\Tests\Models\THEMSAID_TAG_MODEL as Tag;
+use Themsaid\Transformers\Tests\Transformers\THEMSAID_CATEGORY_MODELTransformer as CategoryTransformer;
+use Themsaid\Transformers\Tests\Transformers\THEMSAID_PRODUCT_MODELTransformer as ProductTransformer;
 
 class TransformersTest extends TestCase
 {
@@ -90,66 +90,4 @@ class TransformersTest extends TestCase
 
         $this->assertEquals(1, $result['tags'][0]['relationship_data']['is_active']);
     }
-
-    /**
-     *
-     * @expectedException Themsaid\Transformers\TransformerException
-     */
-    public function test_transform_short_hand_method_must_have_the_first_arg()
-    {
-        transform();
-    }
-
-    /**
-     *
-     * @expectedException Themsaid\Transformers\TransformerException
-     */
-    public function test_transform_short_hand_method_must_have_the_first_arg_model_or_collection()
-    {
-        transform(1);
-    }
-
-    /**
-     *
-     * @return void
-     */
-    public function test_transform_model_to_array_using_short_hand()
-    {
-        $category = Category::create(['name' => 'Electronics']);
-
-        $result = transform($category);
-
-        $this->assertArrayHasKey('name', $result);
-    }
-
-    /**
-     *
-     * @return void
-     */
-    public function test_transform_collection_to_array_using_short_hand()
-    {
-        $category1 = Category::create(['name' => 'Electronics']);
-        $category2 = Category::create(['name' => 'Books']);
-
-        $result = transform(
-            Category::whereIn('id', [$category1->id, $category2->id])->get()
-        );
-
-        $this->assertCount(2, $result);
-        $this->assertArrayHasKey('name', $result[0]);
-    }
-
-    /**
-     *
-     * @return void
-     */
-    public function test_transform_empty_collection_to_array_using_short_hand_returns_array()
-    {
-        $result = transform(
-            Category::where('id', 100000000)->get()
-        );
-
-        $this->assertEquals([], $result);
-    }
-
 }

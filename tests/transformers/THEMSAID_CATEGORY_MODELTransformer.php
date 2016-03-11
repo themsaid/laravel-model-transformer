@@ -5,7 +5,7 @@ namespace Themsaid\Transformers\Tests\Transformers;
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
 
-class CategoryTransformer extends AbstractTransformer
+class THEMSAID_CATEGORY_MODELTransformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {
@@ -19,7 +19,7 @@ class CategoryTransformer extends AbstractTransformer
         }
 
         if ($item->relationLoaded('products')) {
-            $output['products'] = ProductTransformer::transform($item->products);
+            $output['products'] = THEMSAID_PRODUCT_MODELTransformer::transform($item->products);
         }
 
         return $output;

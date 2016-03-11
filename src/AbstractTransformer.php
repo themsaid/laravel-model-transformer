@@ -10,7 +10,7 @@ class AbstractTransformer
     protected $options;
 
     /**
-     * Initialize transformer
+     * Initialize transformer.
      *
      * @param $options
      */
@@ -20,8 +20,11 @@ class AbstractTransformer
     }
 
     /**
-     * @param $modelOrCollection
+     * Transform a Model or a Collection.
+     *
+     * @param mixed $modelOrCollection
      * @param array $options
+     *
      * @return mixed
      */
     static function transform($modelOrCollection, $options = [])
@@ -36,8 +39,11 @@ class AbstractTransformer
     }
 
     /**
-     * @param $item
-     * @param $tableName
+     * Check if the model instance is loaded from the provided pivot table.
+     *
+     * @param Model $item
+     * @param string $tableName
+     *
      * @return bool
      */
     protected function isLoadedFromPivotTable(Model $item, $tableName)
@@ -46,8 +52,11 @@ class AbstractTransformer
     }
 
     /**
+     * Check if the provided relationship is loaded.
+     *
      * @param Model $item
-     * @param $relationshipName
+     * @param string $relationshipName
+     *
      * @return bool
      */
     protected function isRelationshipLoaded(Model $item, $relationshipName)
@@ -56,6 +65,8 @@ class AbstractTransformer
     }
 
     /**
+     * Transform the provided model.
+     *
      * @return mixed
      */
     protected function transformModel(Model $modelOrCollection)

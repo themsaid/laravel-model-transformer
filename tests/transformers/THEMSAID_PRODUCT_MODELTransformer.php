@@ -5,7 +5,7 @@ namespace Themsaid\Transformers\Tests\Transformers;
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
 
-class ProductTransformer extends AbstractTransformer
+class THEMSAID_PRODUCT_MODELTransformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {
@@ -14,7 +14,7 @@ class ProductTransformer extends AbstractTransformer
         ];
 
         if ($this->isRelationshipLoaded($item, 'tags')) {
-            $output['tags'] = TagTransformer::transform($item->tags);
+            $output['tags'] = THEMSAID_TAG_MODELTransformer::transform($item->tags);
         }
 
         return $output;
