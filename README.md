@@ -1,5 +1,9 @@
 # Laravel 5 Model Transformers
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/themsaid/laravel-model-transformers.svg?style=flat-square)](https://packagist.org/packages/themsaid/laravel-model-transformers)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
+[![Total Downloads](https://img.shields.io/packagist/dt/themsaid/laravel-model-transformers.svg?style=flat-square)](https://packagist.org/packages/themsaid/laravel-model-transformers)
+
 This package helps API developers to easily transform Eloquent models into arrays that are convertible to JSON.
 
 Here's how you use it, let's say you have a model with the following data:
@@ -47,7 +51,7 @@ The above code will result a JSON string that may look like this:
 Begin by installing the package through Composer. Run the following command in your terminal:
 
 ```
-composer require themsaid/laravel-model-transformers:dev-master
+composer require themsaid/laravel-model-transformers:1.0.*
 ```
 
 Once composer is done, add the package service provider in the providers array in `config/app.php`
@@ -179,4 +183,32 @@ class CategoryTransformer extends AbstractTransformer
 		return $output;
 	}
 }
+```
+
+## Using the shorthand method
+This package is shipped with a shorthand method for applying transformation for a Model or a Collection:
+
+```php
+<?php
+class SomeController{
+	function getIndex(){
+		$product = Product::find(1);
+
+		return response([
+			"product" => transform($product)
+		]);
+	}
+}
+```
+
+Using the `transform()` method, the package locates the suitable transformer based on the Model or the Collection passed as the first argument.
+
+By default it assumes that all transformers are located under the `App\Transformers` namespace, you can change this behaviour in the config file.
+
+You may also pass options to the transformer as a second argument:
+
+```php
+<?php
+
+transform(Model::find(1), ['use_nl2br' => true])
 ```
