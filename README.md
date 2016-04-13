@@ -69,15 +69,13 @@ php artisan vendor:publish
 That's all what we need.
 
 ## Usage
-Create a model transformer class by extending the AbstractTransformer class(and don't forget to set namespace):
+Create a model transformer class by extending the AbstractTransformer class:
 
 ```php
 <?php
-use Illuminate\Database\Eloquent\Model;
-
 class CategoryTransformer extends Themsaid\Transformers\AbstractTransformer
 {
-    protected function transformModel(Model $item)
+    public function transformModel(Model $item)
     {
         $output = [
             'name'		=> $item->name,
@@ -118,10 +116,9 @@ The package contains two helpful methods for dealing with relationships, the fir
 
 ```php
 <?php
-use Illuminate\Database\Eloquent\Model;
 class ProductTransformer extends AbstractTransformer
 {
-    protected function transformModel(Model $item)
+    public function transformModel(Model $item)
     {
         $output = array_only($item->toArray(), ['name', 'id']);
 
@@ -141,10 +138,9 @@ This method helps you know if the model is loaded from a ManyToMany relationship
 
 ```php
 <?php
-use Illuminate\Database\Eloquent\Model;
 class TagTransformer extends AbstractTransformer
 {
-    protected function transformModel(Model $item)
+    public function transformModel(Model $item)
     {
         $output = array_only($item->toArray(), ['name', 'id']);
 
@@ -174,10 +170,9 @@ Now from inside the CategoryTransformer you can check the options parameter:
 
 ```php
 <?php
-use Illuminate\Database\Eloquent\Model;
 class CategoryTransformer extends AbstractTransformer
 {
-    protected function transformModel(Model $item)
+    public function transformModel(Model $item)
     {
     	$output = [];
     
