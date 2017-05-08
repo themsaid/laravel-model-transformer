@@ -63,7 +63,7 @@ Themsaid\Transformers\TransformersServiceProvider::class
 Finally publish the config file:
 
 ```
-php artisan vendor:publish
+php artisan vendor:publish --provider="Themsaid\Transformers\TransformersServiceProvider"
 ```
 
 That's all what we need.
