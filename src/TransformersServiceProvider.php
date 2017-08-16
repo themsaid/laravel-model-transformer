@@ -17,6 +17,8 @@ class TransformersServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/config/modelTransformers.php' => config_path('modelTransformers.php'),
         ]);
+
+        $this->commands(MakeTransformerCommand::class);
     }
     /**
      * Register any package services.
