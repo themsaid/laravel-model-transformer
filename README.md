@@ -1,4 +1,4 @@
-# Laravel 5 Model Transformers
+# 1. Laravel 5 Model Transformers
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/themsaid/laravel-model-transformers.svg?style=flat-square)](https://packagist.org/packages/themsaid/laravel-model-transformers)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
@@ -47,7 +47,21 @@ The above code will result a JSON string that may look like this:
 
 ---
 
-## Installation
+<!-- TOC -->
+
+- [1. Laravel 5 Model Transformers](#1-laravel-5-model-transformers)
+    - [1.1. Installation](#11-installation)
+    - [1.2. Usage](#12-usage)
+    - [1.3. Dealing with relationships](#13-dealing-with-relationships)
+        - [1.3.1. isRelationshipLoaded()](#131-isrelationshiploaded)
+        - [1.3.2. isLoadedFromPivotTable()](#132-isloadedfrompivottable)
+    - [1.4. Passing options to the transformer](#14-passing-options-to-the-transformer)
+    - [1.5. Using the shorthand method](#15-using-the-shorthand-method)
+    - [1.6. License](#16-license)
+
+<!-- /TOC -->
+
+## 1.1. Installation
 Begin by installing the package through Composer. Run the following command in your terminal:
 
 ```
@@ -68,7 +82,7 @@ php artisan vendor:publish --provider="Themsaid\Transformers\TransformersService
 
 That's all what we need.
 
-## Usage
+## 1.2. Usage
 Create a model transformer class by extending the AbstractTransformer class:
 
 ```php
@@ -90,6 +104,13 @@ class CategoryTransformer extends Themsaid\Transformers\AbstractTransformer
 
 }
 ```
+or use the `make:transformer` command to generate a Transformer class.
+
+To specify which `Eloquent Model` the `transforModel` method on the generated Transformer class will accept as an argument simply   set a `Model` as a value in the `--model` option while generating the Transformer class like this:
+
+```
+php artisan make:transformer ExampleTransformer --model=ExampleModel
+````
 
 Now you can call the transformer from any controller:
 
@@ -109,10 +130,10 @@ return response(
 );
 ```
 
-## Dealing with relationships
+## 1.3. Dealing with relationships
 The package contains two helpful methods for dealing with relationships, the first one helps you know if a specific relation is eager-loaded:
 
-### isRelationshipLoaded()
+### 1.3.1. isRelationshipLoaded()
 
 ```php
 <?php
@@ -133,7 +154,7 @@ class ProductTransformer extends AbstractTransformer
 
 Now only if the tags are eager-loaded they will be presented in the $output array, this helps reminding you to eager-load when querying models with relationships.
 
-### isLoadedFromPivotTable()
+### 1.3.2. isLoadedFromPivotTable()
 This method helps you know if the model is loaded from a ManyToMany relationship, it's helpful when there are pivot data in the table and you would like to present them, example for that:
 
 ```php
@@ -157,7 +178,7 @@ class TagTransformer extends AbstractTransformer
 
 ---
 
-## Passing options to the transformer
+## 1.4. Passing options to the transformer
 You may need to pass some options from the controller to the transformer, you can do that by providing an array of options to the `transform()` method as a second parameter:
 
 ```php
@@ -185,7 +206,7 @@ class CategoryTransformer extends AbstractTransformer
 }
 ```
 
-## Using the shorthand method
+## 1.5. Using the shorthand method
 This package is shipped with a shorthand method for applying transformation for a Model or a Collection:
 
 ```php
@@ -212,3 +233,6 @@ You may also pass options to the transformer as a second argument:
 
 transform(Model::find(1), ['use_nl2br' => true])
 ```
+
+## 1.6. License
+The Laravel Model Transformer is licensed under the [MIT](LICENSE) license.
