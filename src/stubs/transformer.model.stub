@@ -1,0 +1,18 @@
+<?php
+
+namespace DummyNamespace;
+
+use NamespaceDummyModel;
+use Themsaid\Transformers\AbstractTransformer;
+
+class DummyClass extends AbstractTransformer
+{
+    /**
+     * @param \NamespaceDummyModel $dummyModel
+     * @return array
+     */
+    public function transformModel(DummyModel $dummyModel): array
+    {
+        //
+    }
+}
